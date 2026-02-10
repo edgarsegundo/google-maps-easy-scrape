@@ -183,9 +183,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       // Marca como enviado
       await updateContact(next.id, { sent: true });
-      // Abre WhatsApp Web
+      // Abre WhatsApp Web sempre na mesma aba
       const url = `https://web.whatsapp.com/send?phone=${next.whatsapp}`;
-      window.open(url, '_blank');
+      window.open(url, 'whatsappweb');
       await updateTotalCount();
     });
   await updateTotalCount();
