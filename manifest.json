@@ -3,7 +3,7 @@
     "name": "WhatsApp Extractor",
     "version": "1.0",
     "description": "Extrair números de WhatsApp de qualquer página",
-    "permissions": ["activeTab", "scripting", "storage"],
+    "permissions": ["activeTab", "scripting", "storage", "tabs"],
     "action": {
       "default_popup": "popup.html"
     },

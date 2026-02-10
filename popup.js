@@ -183,9 +183,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       // Marca como enviado
       await updateContact(next.id, { sent: true });
-      // Abre WhatsApp Web sempre na mesma aba
       const url = `https://web.whatsapp.com/send?phone=${next.whatsapp}`;
-      window.open(url, 'whatsappweb');
+      // Tenta encontrar uma aba já aberta do WhatsApp Web
+      chrome.tabs.query({}, function(tabs) {
+        const waTab = tabs.find(tab => tab.url && tab.url.startsWith('https://web.whatsapp.com'));
+        if (waTab) {
+          chrome.tabs.update(waTab.id, { url: url, active: true });
+          chrome.windows.update(waTab.windowId, { focused: true });
+        } else {
+          chrome.tabs.create({ url: url });
+        }
+      });
       await updateTotalCount();
     });
   await updateTotalCount();
