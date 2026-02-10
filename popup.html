@@ -1,93 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Maps Easy Scrape</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { 
-      min-width: 570px; 
-      padding: 20px; 
-      font-family: 'Poppins', sans-serif; 
-    }
-    #message {
-      font-size: 16px;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      text-decoration: none;
-    }
-    .button {
-
-      padding: 10px 20px; 
-      border: none;
-      color: white;
-      background-color: #007BFF;
-      cursor: pointer; 
-      transition: background-color 0.3s ease; 
-      border-radius: 20px;
-      font-family: 'Poppins', sans-serif;
-    }
-    .button:hover {
-      background-color: #0056b3; 
-    }
-    .input {
-      padding: 8px 15px;
-      margin-right: 10px; 
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      font-family: 'Poppins', sans-serif;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #dddddd;
-    }
-    h1 {
-      font-weight: 600;
-      font-size: 24px;
-      margin: 0;
-    }
-    h4 {
-      margin: 0;
-      padding-top: 10px;
-    }
-    h4 a {
-      color: #676767;
-      text-decoration: none;
-    }
-    h4 a:hover {
-      color: #007BFF;
-      text-decoration: none;
-    }
-  </style>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Extractor</title>
 </head>
-<body>
-  <h1>&#x1F5FA;&#xFE0F; Google Maps Easy Scrape</h1>
-  <h4>
-    <a href="https://www.youtube.com/@itsmikepowers" target="_blank">By Mike</a> 
-    <a href="https://www.buymeacoffee.com/itsmikepowers" target="_blank">Buy Me A Coffee :)</a>
-  </h4>
-  <div id="message">Checking URL...</div>
-  <button id="actionButton" class="button" disabled>Scrape Google Maps</button>
-  <button id="downloadCsvButton" class="button" style="margin-left: 10px;" disabled>Download as CSV</button>
-  <input type="text" id="filenameInput" class="input" placeholder="Enter file name" style="margin-left: 10px;" />
-  <table id="resultsTable">
-    <thead>
-      <tr>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+<body class="w-[600px] p-6 bg-gradient-to-br from-green-50 to-emerald-50">
+  <div class="text-center mb-6">
+    <h1 class="text-2xl font-bold text-green-700 mb-2">📱 WhatsApp Extractor</h1>
+    <p class="text-sm text-gray-600">Extrair números de WhatsApp desta página</p>
+  </div>
+  
+  <button id="extractBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-200 transform hover:scale-105">
+    🔍 Extrair WhatsApp
+  </button>
+  
+  <div class="mt-6 bg-white rounded-lg shadow p-4">
+    <h3 class="text-sm font-semibold text-gray-700 mb-3">📊 Estatísticas</h3>
+    <div class="flex justify-between items-center">
+      <span class="text-gray-600 text-sm">Total extraídos:</span>
+      <span id="totalCount" class="text-green-600 font-bold text-lg">0</span>
+    </div>
+  </div>
+  
+  <div class="mt-4">
+    <button id="viewLastBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+      📋 Ver Últimos 10
+    </button>
+  </div>
+  
+  <div id="lastRecords" class="hidden mt-4 bg-white rounded-lg shadow p-4 max-h-64 overflow-y-auto">
+    <h3 class="text-sm font-semibold text-gray-700 mb-3">Últimos Registros</h3>
+    <div id="recordsList"></div>
+  </div>
+  
+  <div class="mt-4 text-center">
+    <button id="resetDbBtn" class="text-xs text-red-500 hover:text-red-700 underline transition duration-200">
+      🗑️ Resetar Banco de Dados
+    </button>
+  </div>
+  
   <script src="popup.js"></script>
 </body>
 </html>

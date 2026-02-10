@@ -1,12 +1,19 @@
 {
     "manifest_version": 3,
-    "name": "Google Maps Easy Scrape",
+    "name": "WhatsApp Extractor",
     "version": "1.0",
-    "description": "Google Maps Easy Scrape by Mike Powers",
-    "permissions": ["activeTab", "scripting"],
+    "description": "Extrair números de WhatsApp de qualquer página",
+    "permissions": ["activeTab", "scripting", "storage"],
     "action": {
       "default_popup": "popup.html"
     },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "css": ["content.css"]
+      }
+    ],
     "icons": {
       "16": "map.png",
       "48": "map.png",
