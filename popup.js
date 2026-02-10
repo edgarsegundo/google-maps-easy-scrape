@@ -22,6 +22,26 @@ function openDB() {
   });
 }
 
+// Atualiza um contato pelo id
+async function updateContact(id, updateObj) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        const getReq = store.get(id);
+        getReq.onsuccess = () => {
+        const contact = getReq.result;
+        if (!contact) return reject('Contato não encontrado');
+        Object.assign(contact, updateObj);
+        const putReq = store.put(contact);
+        putReq.onsuccess = () => resolve(putReq.result);
+        putReq.onerror = () => reject(putReq.error);
+        };
+        getReq.onerror = () => reject(getReq.error);
+    });
+}
+
+
 async function saveContact(contact) {
   const db = await openDB();
   return new Promise((resolve, reject) => {
@@ -153,6 +173,21 @@ async function displayLastRecords() {
 
 // Main event listeners
 document.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('sendNextBtn').addEventListener('click', async () => {
+      const contacts = await getAllContacts();
+      // Busca o próximo não enviado
+      const next = contacts.find(c => !c.sent);
+      if (!next) {
+        alert('Todos os números já foram enviados!');
+        return;
+      }
+      // Marca como enviado
+      await updateContact(next.id, { sent: true });
+      // Abre WhatsApp Web
+      const url = `https://web.whatsapp.com/send?phone=${next.whatsapp}`;
+      window.open(url, '_blank');
+      await updateTotalCount();
+    });
   await updateTotalCount();
 
   document.getElementById('resetDbBtn').addEventListener('click', async () => {
